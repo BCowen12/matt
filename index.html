@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<form id="frm1" action="/action_page.php">
+  How Many Coins: <input type="text" name="coin" value="4"><br>
+  Percentage Change: <input type="text" name="percent" value="1"><br>
+  How Many Iterations: <input type="text" name="iterations" value="5"><br><br>
+</form> 
+
+<p>Click "Submit" to display the results.</p>
+
+<button onclick="myFunction()">Submit</button>
+
+<p id="results"></p>
+
+<script>
+function myFunction() {
+    let percent, coin, iterations = ""; 
+  var x = document.getElementById("frm1");
+  var text = "";
+  var i;
+  for (i = 0; i < x.length ;i++) {
+    if(i==0){
+        coin = x.elements[i].value;
+    }
+    if(i==1){
+        percent = x.elements[i].value;
+    }
+    if(i==2){
+        iterations = x.elements[i].value;
+    }
+  }
+  coinTossGame(percent, coin, iterations);
+}
+
+function coinTossGame (percent, count, startCount) {
+    let list = []
+    for(let y=0; y<count; y++){
+        list[y] = [];
+        let num = 1;
+        let split;
+        for(let x=0; x<startCount; x++){
+            list[y][x] = []
+            if(x==0){
+                split = Math.floor(Math.random() * 100) + 1;
+                list[y][x].push({
+                    "gen": x,
+                    "split": 50,
+                    "random": split
+                });
+                if(split<list[y][x][0].split){
+                    list[y][x][0].flip = "-";
+                } else{
+                    list[y][x][0].flip = "*";
+                }
+            } else{
+                let add = list[y][x-1].length;
+                num = num + (add);
+                for(let z=0; z<num; z++){
+                    split = Math.floor(Math.random() * 100) + 1; 
+                    if(z < add){
+                        if(list[y][x-1][z].flip == "-"){
+                            list[y][x].push({
+                                "gen": x,
+                                "split": list[y][x-1][z].split - percent,
+                                "random": split
+                            });
+                            if(split<list[y][x][z].split){
+                                list[y][x][z].flip = "-";
+                            } else{
+                                list[y][x][z].flip = "*";
+                            }
+                        } else{
+                            list[y][x].push({
+                                "gen": x,
+                                "split": list[y][x-1][z].split + percent,
+                                "random": split
+                            });
+                            if(split<list[y][x][z].split){
+                                list[y][x][z].flip = "-";
+                            } else{
+                                list[y][x][z].flip = "*";
+                            }
+                        }
+                    }else{
+                        if(list[y][x-1][z-add].flip == "-"){
+                            list[y][x].push({
+                                "gen": x,
+                                "split": list[y][x-1][z-add].split - percent,
+                                "random": split
+                            });
+                            if(split<list[y][x][z].split){
+                                list[y][x][z].flip = "-";
+                            } else{
+                                list[y][x][z].flip = "*";
+                            }
+                        } else{
+                            list[y][x].push({
+                                "gen": x,
+                                "split": list[y][x-1][z-add].split + percent,
+                                "random": split
+                            });
+                            if(split<list[y][x][z].split){
+                                list[y][x][z].flip = "-";
+                            } else{
+                                list[y][x][z].flip = "*";
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+    }   
+    console.log(list);
+    let results = [];
+    for(let x=0; x<list.length; x++){
+        for(let y=0; y<list[x].length; y++){
+            let tosses = "";
+            for(let z=0; z<list[x][y].length; z++){
+                tosses += list[x][y][z].flip + " "
+            }
+            results[y] += tosses;
+        }
+    }
+    let newRes = ""
+    for(let x=0; x<results.length; x++){
+        newRes += results[x].split("undefined").pop() + "<br>";
+    }
+    document.getElementById("results").innerHTML = newRes;
+  }
+</script>
+
+</body>
+</html>
