@@ -87,7 +87,7 @@ function coinTossGame (percent, count, startCount) {
                         if(list[y][x-1][z-add].flip == "-"){
                             list[y][x].push({
                                 "gen": x,
-                                "split": parseInt(list[y][x-1][z-add].split) - parseInt(percentparseInt),
+                                "split": parseInt(list[y][x-1][z-add].split) - parseInt(percent),
                                 "random": split
                             });
                             if(split<list[y][x][z].split){
