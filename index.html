@@ -63,7 +63,7 @@ function coinTossGame (percent, count, startCount) {
                         if(list[y][x-1][z].flip == "-"){
                             list[y][x].push({
                                 "gen": x,
-                                "split": list[y][x-1][z].split - percent,
+                                "split": parseInt(list[y][x-1][z].split) - parseInt(percent),
                                 "random": split
                             });
                             if(split<list[y][x][z].split){
@@ -74,7 +74,7 @@ function coinTossGame (percent, count, startCount) {
                         } else{
                             list[y][x].push({
                                 "gen": x,
-                                "split": list[y][x-1][z].split + percent,
+                                "split": parseInt(list[y][x-1][z].split) + parseInt(percent),
                                 "random": split
                             });
                             if(split<list[y][x][z].split){
@@ -87,7 +87,7 @@ function coinTossGame (percent, count, startCount) {
                         if(list[y][x-1][z-add].flip == "-"){
                             list[y][x].push({
                                 "gen": x,
-                                "split": list[y][x-1][z-add].split - percent,
+                                "split": parseInt(list[y][x-1][z-add].split) - parseInt(percentparseInt),
                                 "random": split
                             });
                             if(split<list[y][x][z].split){
@@ -98,7 +98,7 @@ function coinTossGame (percent, count, startCount) {
                         } else{
                             list[y][x].push({
                                 "gen": x,
-                                "split": list[y][x-1][z-add].split + percent,
+                                "split": parseInt(list[y][x-1][z-add].split) + parseInt(percent),
                                 "random": split
                             });
                             if(split<list[y][x][z].split){
