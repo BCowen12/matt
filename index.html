@@ -72,7 +72,7 @@ function coinTossGame (percent, count, startCount) {
         for(let x=0; x<startCount; x++){
             list[y][x] = []
             if(x==0){
-                split = Math.floor(Math.random() * 100) + 1;
+                split = Math.floor(Math.random() * 100);
                 list[y][x].push({
                     "gen": x,
                     "split": 50,
@@ -87,7 +87,7 @@ function coinTossGame (percent, count, startCount) {
                 let add = list[y][x-1].length;
                 num = num + (add);
                 for(let z=0; z<num; z++){
-                    split = Math.floor(Math.random() * 100) + 1; 
+                    split = Math.floor(Math.random() * 100); 
                     if(z < add){
                         if(list[y][x-1][z].flip == "-"){
                             list[y][x].push({
