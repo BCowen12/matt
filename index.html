@@ -1,12 +1,24 @@
 <!DOCTYPE html>
 <html>
 <body>
+    <style>
+        .red {
+          background-color: darkred;
+          color: white;
+        }
+        
+        .green {
+          background-color: green;
+          color: white;
+        }
+        </style>
 
 <form id="frm1" action="/action_page.php">
   How Many Coins: <input type="text" name="coin" value="4"><br>
   Percentage Change: <input type="text" name="percent" value="1"><br>
   How Many Iterations: <input type="text" name="iterations" value="5"><br><br>
 </form> 
+<p id="gen" style="float:center;"></p>
 
 <p>Click "Submit" to display the results.</p>
 
@@ -115,20 +127,34 @@ function coinTossGame (percent, count, startCount) {
     }   
     console.log(list);
     let results = [];
+    let gCount = [];
+    for(let x=0; x<startCount; x++){
+        gCount.push(0);
+    }
+    let generation = "";
     for(let x=0; x<list.length; x++){
         for(let y=0; y<list[x].length; y++){
             let tosses = "";
             for(let z=0; z<list[x][y].length; z++){
-                tosses += list[x][y][z].flip + " "
+                let color = "red";
+                if(list[x][y][z].flip == "*"){
+                    color = "green"
+                }
+                tosses +=  `<span class="${color}">${list[x][y][z].split} </span>`;
+                gCount[list[x][y][z].gen]++;
             }
             results[y] += tosses;
         }
+    }
+    for(let x=0; x<gCount.length; x++){
+        generation += "Gen"+x+": "+gCount[x] + "<br>";
     }
     let newRes = ""
     for(let x=0; x<results.length; x++){
         newRes += results[x].split("undefined").pop() + "<br>";
     }
     document.getElementById("results").innerHTML = newRes;
+    document.getElementById("gen").innerHTML = generation;
   }
 </script>
 
