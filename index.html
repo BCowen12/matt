@@ -11,6 +11,14 @@
           background-color: green;
           color: white;
         }
+
+        .redC {
+          color: darkred;
+        }
+        
+        .greenC {
+          color: green;
+        }
         </style>
 
 <form id="frm1" action="/action_page.php">
@@ -128,17 +136,25 @@ function coinTossGame (percent, count, startCount) {
     console.log(list);
     let results = [];
     let gCount = [];
+    redCount = [];
+    greenCount = [];
     for(let x=0; x<startCount; x++){
         gCount.push(0);
+        redCount.push(0);
+        greenCount.push(0);
     }
     let generation = "";
     for(let x=0; x<list.length; x++){
         for(let y=0; y<list[x].length; y++){
             let tosses = "";
             for(let z=0; z<list[x][y].length; z++){
-                let color = "red";
+                let color = "";
                 if(list[x][y][z].flip == "*"){
-                    color = "green"
+                    color = "green";
+                    greenCount[list[x][y][z].gen]++;
+                } else {
+                    color = "red";
+                    redCount[list[x][y][z].gen]++;
                 }
                 tosses +=  `<span class="${color}">${list[x][y][z].split} </span>`;
                 gCount[list[x][y][z].gen]++;
@@ -147,7 +163,7 @@ function coinTossGame (percent, count, startCount) {
         }
     }
     for(let x=0; x<gCount.length; x++){
-        generation += "Gen"+x+": "+gCount[x] + "<br>";
+        generation += "Gen"+x+": "+gCount[x] + "  [<span class='greenC'>" + greenCount[x] + "</span> : <span class='redC'>" + redCount[x] + "</span>]<br>";
     }
     let newRes = ""
     for(let x=0; x<results.length; x++){
