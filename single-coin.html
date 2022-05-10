@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+    <header>
+        <p><a id='links' href="/index.html">Multiple Coins</a><br><a id='links' href="/single-coin.html">Single Coin</a></p>
+    </header>
+<body>
+    <style>
+
+        #links {
+            position: fixed;
+            left: 50%;
+        }
+
+        .red {
+          background-color: darkred;
+          color: white;
+        }
+        
+        .green {
+          background-color: green;
+          color: white;
+        }
+
+        .redC {
+          color: darkred;
+        }
+        
+        .greenC {
+          color: green;
+        }
+        </style>
+
+<form id="frm1" action="/action_page.php">
+  Percentage Change: <input type="text" name="percent" value="1"><br>
+  How Many Iterations: <input type="text" name="iterations" value="10000"><br><br>
+</form> 
+<p id="gen" style="float:center;"></p>
+
+<p>Click "Submit" to display the results.</p>
+
+<button onclick="myFunction()">Submit</button>
+
+<p id="results"></p>
+
+<script>
+function myFunction() {
+    let percent, coin, iterations = ""; 
+  var x = document.getElementById("frm1");
+  var text = "";
+  var i;
+  for (i = 0; i < x.length ;i++) {
+    if(i==0){
+        percent = x.elements[i].value;
+    }
+    if(i==1){
+        iterations = x.elements[i].value;
+    }
+  }
+  coinTossGame(percent, iterations);
+}
+
+function coinTossGame (percent, startCount) {
+    let list = [{
+        split: 50,
+        random: Math.floor(Math.random() * 100) + 1
+    }];
+    let red = 0;
+    let green = 0;
+    let results = "";
+    let count = "";
+    for(let x=0; x<startCount-1; x++){
+        let obj = {};
+        if(list[x].random < list[x].split){
+            red ++;
+            list[x].color = 'red';
+            if(list[x].split == 100){
+                list.push({
+                split: 100,
+                random: Math.floor(Math.random() * 100) + 1
+                });
+            } else {
+                list.push({
+                split: list[x].split+1,
+                random: Math.floor(Math.random() * 100) + 1
+                });
+            }
+        } else{
+            green ++;
+            list[x].color = 'green';
+            if(list[x].split == 0){
+                list.push({
+                split: 0,
+                random: Math.floor(Math.random() * 100) + 1
+                });
+            } else {
+                list.push({
+                split: list[x].split-1,
+                random: Math.floor(Math.random() * 100) + 1
+                });
+            }
+        }
+        results += `<span class="${list[x].color}">${list[x].split} </span>`
+    }
+    console.log(list);
+    count = `[<span class='greenC'>${green}</span> : <span class='redC'>${red}]</span>]<br>`
+    
+    document.getElementById("results").innerHTML = results;
+    document.getElementById("gen").innerHTML = count;
+  }
+</script>
+
+</body>
+</html>
