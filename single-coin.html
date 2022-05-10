@@ -62,7 +62,7 @@ function myFunction() {
 function coinTossGame (percent, startCount) {
     let list = [{
         split: 50,
-        random: Math.floor(Math.random() * 100) + 1
+        random: Math.floor(Math.random() * 100)
     }];
     let red = 0;
     let green = 0;
@@ -76,12 +76,12 @@ function coinTossGame (percent, startCount) {
             if(list[x].split == 100){
                 list.push({
                 split: 100,
-                random: Math.floor(Math.random() * 100) + 1
+                random: Math.floor(Math.random() * 100)
                 });
             } else {
                 list.push({
                 split: list[x].split+1,
-                random: Math.floor(Math.random() * 100) + 1
+                random: Math.floor(Math.random() * 100)
                 });
             }
         } else{
@@ -90,12 +90,12 @@ function coinTossGame (percent, startCount) {
             if(list[x].split == 0){
                 list.push({
                 split: 0,
-                random: Math.floor(Math.random() * 100) + 1
+                random: Math.floor(Math.random() * 100)
                 });
             } else {
                 list.push({
                 split: list[x].split-1,
-                random: Math.floor(Math.random() * 100) + 1
+                random: Math.floor(Math.random() * 100)
                 });
             }
         }
